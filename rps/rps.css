@@ -1,0 +1,108 @@
+ body{
+        font-family: roboto;
+        font-size: medium;
+        background-color: rgb(27, 24, 24);
+        color:white;
+    }
+    body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  background-color: rgb(27, 24, 24);
+  font-family: roboto;
+  font-size: medium;
+  color: white;
+}
+
+    .bigcontainer{
+       padding: 20px;
+       border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+
+    }
+   
+    .move img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
+
+ .pick img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
+
+
+ 
+    .move{
+        background-color: orange;
+        
+        border: solid 2px whitesmoke;
+        object-fit: contain;
+        display: flex;
+      
+        width: 70px;
+        height: 70px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 10px;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+   
+
+    .move:hover {
+  background-color: gold;
+  transform: scale(1.05);
+}
+.move:active {
+  transform: scale(0.95);
+}
+
+.move-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+}
+
+.who-won,
+.score {
+  text-align: center;
+  width: 100%;
+}
+
+.move-item {
+  text-align: center;
+}
+
+.circle {
+  width: 70px;
+  height: 70px;
+  background-color: orange;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.circle img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}

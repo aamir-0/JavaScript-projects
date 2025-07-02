@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="rps.css">
+    <title>Rock-Paper-Sissors</title>
+    <script src="rps.js"></script>
+</head>
+<body>
+
+  <div class="bigcontainer">
+      <p class="who-won" style="font-family: roboto;">No One Won Yet</p>
+  <div class="container">
+    <button class="move" onclick="userMove='rock';check()"><img src="images/rock.svg"></button>
+    <button  class="move" onclick="userMove='paper';check();"><img src="images/paper.svg"></button>
+    <button class="move" onclick="userMove='sissor';check()"><img src="images/sissor.svg"></button>
+    <button class="move" onclick="reset()">Reset</button>
+  </div>
+
+
+
+<div class="move-div">
+  <div class="move-item">
+    <p class="who-move">Computer Move:</p>
+    <div class="circle">
+      <img class="pick" src="images/rock.svg">
+    </div>
+  </div>
+
+  <div class="move-item">
+    <p class="who-move">Your Move:</p>
+    <div class="circle">
+      <img class="pick" src="images/rock.svg">
+    </div>
+  </div>
+</div>
+
+    <p class="score" style="font-family: roboto;">player:0 computer:0 tie:0</p>
+</div>
+
+</body>
+</html>
