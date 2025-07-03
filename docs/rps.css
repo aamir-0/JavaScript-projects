@@ -1,5 +1,5 @@
  body{
-        font-family: roboto;
+         font-family: 'Poppins', sans-serif;
         font-size: medium;
         background-color: rgb(27, 24, 24);
         color:white;
@@ -10,10 +10,11 @@
   display: flex;
   justify-content: center; 
   align-items: center;     
-  background-color: rgb(27, 24, 24);
+  background-color: rgba(27, 24, 24);
   font-family: roboto;
   font-size: medium;
   color: white;
+
 }
 
     .bigcontainer{
@@ -21,6 +22,7 @@
        border-radius: 10px;
       align-items: center;
       justify-content: center;
+      background-color:rgba(255, 215, 0, 0.1);
 
     }
    
@@ -92,7 +94,7 @@
 .circle {
   width: 70px;
   height: 70px;
-  background-color: orange;
+  background-color: rgb(227, 212, 125);
   border: 2px solid white;
   border-radius: 50%;
   display: flex;
@@ -106,3 +108,17 @@
   height: 40px;
   object-fit: contain;
 }
+
+.move img {
+  transition: transform 0.3s ease;
+}
+
+.move:hover img {
+  transform: scale(1.15);
+}
+
+.circle.highlight {
+  box-shadow: 0 0 15px 5px gold;
+  transform: scale(1.05);
+}
+

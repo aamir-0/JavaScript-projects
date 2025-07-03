@@ -2,6 +2,7 @@ let comMove = "";
         let userMove = "";
 
         let score = JSON.parse(localStorage.getItem("score"));
+         score = { player: 0, computer: 0, tie: 0 };
 
         comMove=comPick();
         
