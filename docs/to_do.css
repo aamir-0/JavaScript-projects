@@ -99,7 +99,7 @@ box-shadow: 0px 0px 0px 0px #000000;
     text-align: center;
 }
 
-/*Night mode file*/
+/*Night mode part*/
 body.dark-mode {
     background: #181a1b;
     color: #f1f1f1;
@@ -147,4 +147,36 @@ body.dark-mode .del_btn {
 body.dark-mode .display_list > div {
     background: #232526;
     color: #f1f1f1;
+}
+/*mobile query*/
+@media (max-width: 600px) {
+  .bigcontainer {
+    padding: 0;
+    height: auto;
+    min-height: 100vh;
+  }
+  .todo_wrapper {
+    padding: 16px 8px;
+    min-width: unset;
+    width: 98vw;
+    box-sizing: border-box;
+  }
+  .todo_grid {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+    column-gap: 0;
+  }
+  .js_input,
+  .js_date {
+    width: 100%;
+    font-size: 1.1em;
+  }
+  .btn,
+  .add_btn {
+    width: 100%;
+    font-size: 1.1em;
+  }
+  h2 {
+    font-size: 1.3em;
+  }
 }
