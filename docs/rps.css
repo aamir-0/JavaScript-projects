@@ -122,3 +122,10 @@
   transform: scale(1.05);
 }
 
+button{
+  box-shadow: 5px 5px 0px 0px #757171;
+  transition: 0.3s;
+}
+button:hover{
+  box-shadow: 0px 0px 0px 0px #000000;
+}
