@@ -21,17 +21,22 @@ const todolist=[
        todohtml.push(
       `<div>${item.name}</div>
        <div>${item.date ? item.date : ''}</div>
-       <button class="del_btn" onclick="del(${i})">Delete</button>`
+       <button class="del_btn js_del_button" >Delete</button>`
     );
     }
   
     todolist.forEach(pushfun);
     dis_obj.innerHTML = todohtml.join('');
+
+  const arr_del_btn = document.querySelectorAll('.js_del_button');
+arr_del_btn.forEach((del_btn, index) => {
+  del_btn.addEventListener("click", () => del(index));//while using addeventlistener always use => funtion even if want to call other funtion
+});
 }
 
 function del(i) {
     todolist.splice(i, 1);
-   // tododate.splice(i, 1);
+   // tododate.splice(i, 1); 
     renderhtml();
 }
 
