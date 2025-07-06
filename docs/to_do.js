@@ -1,6 +1,11 @@
+//have to add keydown selector for add and delete button for delete use querySelectAll
 const todolist=[
         ];
        // const tododate=[];
+
+       document.querySelector('.js_addbutton').addEventListener("click",()=>{
+        addfun();
+       })
 
         document.querySelector('.js_input').addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
@@ -12,15 +17,15 @@ const todolist=[
     const dis_obj = document.querySelector(".display_list");
     let todohtml = [];
 
-  
-
-    for (let i = 0; i < todolist.length; i++) {
-        todohtml.push(
-            `<div>${todolist[i].name}</div>
-             <div> ${ todolist[i].date ? todolist[i].date : ''}</div>
-             <button class="del_btn" onclick="del(${i})">Delete</button>`
-        );
+    function pushfun(item, i){
+       todohtml.push(
+      `<div>${item.name}</div>
+       <div>${item.date ? item.date : ''}</div>
+       <button class="del_btn" onclick="del(${i})">Delete</button>`
+    );
     }
+  
+    todolist.forEach(pushfun);
     dis_obj.innerHTML = todohtml.join('');
 }
 
@@ -30,7 +35,7 @@ function del(i) {
     renderhtml();
 }
 
-function addfun() {
+function  addfun(){
     const temp = document.querySelector(".js_input");
     const name = temp.value;
     const date_obj = document.querySelector(".js_date");

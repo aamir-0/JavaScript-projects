@@ -1,5 +1,33 @@
+/*have to add event listener for keyboard kry r->rock ,p->paper etc*/
 let comMove = "";
-        let userMove = "";
+let userMove = "";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn_rock = document.querySelector(".js_button_rock");
+  btn_rock.addEventListener("click", () => {
+    console.log("rock called");
+    userMove = 'rock';
+    check();
+  });
+});/*had to wrap js_button_rock selector in DOMContentLoaded because access DOM elements before they existed.*/
+
+document.addEventListener("DOMContentLoaded", () => {
+const btn_paper = document.querySelector(".js_button_paper");
+ btn_paper.addEventListener("click", () => {
+    userMove = 'paper';
+    check();
+  });
+  });
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const btn_sissor=document.querySelector(".js_button_sissor");
+  btn_sissor.addEventListener("click",()=>{
+      userMove = 'sissor';
+    check();
+  })
+
+}
+)
 
         let score = JSON.parse(localStorage.getItem("score"));
          score = { player: 0, computer: 0, tie: 0 };
@@ -82,5 +110,24 @@ document.querySelectorAll(".circle img")[1].src = `images/${userMove}.svg`;
     function updateScoreDisplay() {
   document.querySelector(".score").innerText =
     `player:${score.player} computer:${score.computer} tie:${score.tie}`;
-}
+    }
+
+    let autoplaying=false;
+    let interid;
+    function autoplay() {
+      if(!autoplaying){  console.log("auto called");
+      interid=setInterval(function() {
+        
+        const moves = ["rock", "paper", "sissor"];
+        userMove = moves[Math.floor(Math.random() * moves.length)];
+        check();
+        autoplaying=true;
+      }, 1000);}
+      else{
+        clearInterval(interid);
+        autoplaying=false;
+      }
+
+    }
+
 
