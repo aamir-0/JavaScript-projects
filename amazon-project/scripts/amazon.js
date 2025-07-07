@@ -1,6 +1,6 @@
 import {cart, addtocart} from '../data/cart.js';
 import {products} from '../data/products.js';
-
+import{convertion} from '../utils/money.js'
 
 
 
@@ -26,7 +26,7 @@ products.forEach((value)=>
           </div>
 
           <div class="product-price">
-            ₹${value.priceCents}
+            ₹${convertion((value.priceCents)/100)}
           </div>
 
           <div class="product-quantity-container">
