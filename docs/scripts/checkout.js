@@ -6,21 +6,21 @@ import { cartOption } from '../data/cartOptions.js';
 import { renderpaymentsummery } from './paymentsummery.js';
 
 
-export function deliveryOptionHTML(matchingProduct) {
+export function deliveryOptionHTML(cartItem) {
   let html = '';
   cartOption.forEach((delivery) => {
     const today = dayjs();
     const deliveryDate = today.add(delivery.daliveryDays, 'day');
     const dateString = deliveryDate.format('dddd, MMMM D');
     const priceString = delivery.price === 0 ? 'FREE Shipping' : `₹${Math.floor(convertion(delivery.price) / 100)} - Shipping`;
-    const ischecked = delivery.id === matchingProduct.deliveryOptionId ? 'checked' : '';
+    const ischecked = delivery.id === cartItem.deliveryOptionId ? 'checked' : '';
     html += `
       <div class="delivery-option">
         <input type="radio"
           value="${delivery.id}"
           ${ischecked}
           class="delivery-option-input"
-          name="delivery-option-${matchingProduct.id}">
+          name="delivery-option-${cartItem.productId}">
         <div>
           <div class="delivery-option-date">
             ${dateString}
@@ -34,88 +34,86 @@ export function deliveryOptionHTML(matchingProduct) {
   });
   return html;
 }
+function renderOrderSummary() {
+  const today = dayjs();
 
-function renderOrderSummary(){
-const today = dayjs();
+  let cartsummeryHTML = '';
+  cart.forEach((cartItem) => {
+    const productId = cartItem.productId;
 
-let cartsummeryHTML = '';
-cart.forEach((cartItem) => {
-  const productId = cartItem.productId;
+    let matchingProduct;
+    products.forEach((product) => {
+      if (product.id === productId) {
+        matchingProduct = product;
+      }
+    });
 
-  let matchingProduct;
-  products.forEach((product) => {
-    if (product.id === productId) {
-      matchingProduct = product;
-    }
-  });
+    const deliveryOptionId = cartItem.deliveryOptionId;
+    let selectedDeliveryOption = cartOption.find(option => option.id === deliveryOptionId) || cartOption[0];
 
-  // Find the selected delivery option for this cart item
-  const deliveryOptionId = cartItem.deliveryOptionId;
-  let selectedDeliveryOption = cartOption.find(option => option.id === deliveryOptionId) || cartOption[0];
-  
-  // Calculate the delivery date based on the selected option
-  const deliveryDate = today.add(selectedDeliveryOption.daliveryDays, 'day');
-  const dateString = deliveryDate.format('dddd, MMMM D');
+    const deliveryDate = today.add(selectedDeliveryOption.daliveryDays, 'day');
+    const dateString = deliveryDate.format('dddd, MMMM D');
 
-  cartsummeryHTML +=
-    `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
-      <div class="delivery-date">
-        Delivery date: ${dateString}
-      </div>
-
-      <div class="cart-item-details-grid">
-        <img class="product-image"
-          src="${matchingProduct.image}">
-
-        <div class="cart-item-details">
-          <div class="product-name">
-            ${matchingProduct.name}
-          </div>
-          <div class="product-price">
-            ₹${convertion(matchingProduct.priceCents / 100)}
-          </div>
-          <div class="product-quantity">
-            <span>
-              Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-            </span>
-            <span class="update-quantity-link link-primary">
-              Update
-            </span>
-            <span data-product-id="${matchingProduct.id}" class="delete-quantity-link link-primary js_delete_link">
-              Delete
-            </span>
-          </div>
+    cartsummeryHTML +=
+      `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+        <div class="delivery-date">
+          Delivery date: ${dateString}
         </div>
 
-        <div class="delivery-options">
-          <div class="delivery-options-title">
-            Choose a delivery option:
-            ${deliveryOptionHTML(matchingProduct)}
+        <div class="cart-item-details-grid">
+          <img class="product-image"
+            src="${matchingProduct.image}">
+
+          <div class="cart-item-details">
+            <div class="product-name">
+              ${matchingProduct.name}
+            </div>
+            <div class="product-price">
+              ₹${convertion(matchingProduct.priceCents / 100)}
+            </div>
+            <div class="product-quantity">
+              <span>
+                Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+              </span>
+              <span class="update-quantity-link link-primary">
+                Update
+              </span>
+              <span data-product-id="${matchingProduct.id}" class="delete-quantity-link link-primary js_delete_link">
+                Delete
+              </span>
+            </div>
+          </div>
+
+          <div class="delivery-options">
+            <div class="delivery-options-title">
+              Choose a delivery option:
+              ${deliveryOptionHTML(cartItem)}
+            </div>
           </div>
         </div>
-      </div>
-    </div>`;
-});
-document.querySelector('.order-summary').innerHTML = cartsummeryHTML;
-
-document.querySelectorAll('.js_delete_link').forEach((link) => {
-  link.addEventListener("click", () => {
-    const product_to_del = link.dataset.productId;
-    console.log('Product to delete:', product_to_del);
-
-    removeFromCart(product_to_del);
-    console.log('Updated cart:', cart);
-
-    let container = document.querySelector(`.js-cart-item-container-${product_to_del}`);
-    if (container) {
-      container.remove();
-    } else {
-      console.error(`Error: Could not find container for product ID: ${product_to_del}`);
-    }
-
-    renderpaymentsummery();
+      </div>`;
   });
-});
+  document.querySelector('.order-summary').innerHTML = cartsummeryHTML;
+
+  document.querySelectorAll('.js_delete_link').forEach((link) => {
+    link.addEventListener("click", () => {
+      const product_to_del = link.dataset.productId;
+      console.log('Product to delete:', product_to_del);
+
+      removeFromCart(product_to_del);
+      console.log('Updated cart:', cart);
+
+      let container = document.querySelector(`.js-cart-item-container-${product_to_del}`);
+      if (container) {
+        container.remove();
+      } else {
+        console.error(`Error: Could not find container for product ID: ${product_to_del}`);
+      }
+
+      renderpaymentsummery();
+    });
+  });
+}
 
 // Add this new event listener code
 document.addEventListener('change', function(event) {
@@ -147,7 +145,7 @@ renderOrderSummary();
   }
 });
 
-}
+// Initial render of the order summary and payment summary
 renderpaymentsummery();
 renderOrderSummary();
 
