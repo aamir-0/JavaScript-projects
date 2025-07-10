@@ -1,3 +1,4 @@
+import {cart} from '../data/cart.js';
 export const cartOption = [
     {id:'1',
       daliveryDays:7,
@@ -9,3 +10,16 @@ export const cartOption = [
     }
 
 ];
+
+export function getCartOption(deliveryOptionId) {
+    let deliveryOption;
+    cartOption.forEach(Option => {
+        if (Option.id == deliveryOptionId) {
+            deliveryOption = Option;
+        }
+    });
+
+
+    // Return the matching delivery option or the default (first option)
+    return deliveryOption || cartOption[0];
+}
