@@ -5,6 +5,36 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { cartOption } from '../data/cartOptions.js';
 import { renderpaymentsummery } from './paymentsummery.js';
 
+
+export function deliveryOptionHTML(matchingProduct) {
+  let html = '';
+  cartOption.forEach((delivery) => {
+    const today = dayjs();
+    const deliveryDate = today.add(delivery.daliveryDays, 'day');
+    const dateString = deliveryDate.format('dddd, MMMM D');
+    const priceString = delivery.price === 0 ? 'FREE Shipping' : `₹${Math.floor(convertion(delivery.price) / 100)} - Shipping`;
+    const ischecked = delivery.id === matchingProduct.deliveryOptionId ? 'checked' : '';
+    html += `
+      <div class="delivery-option">
+        <input type="radio"
+          value="${delivery.id}"
+          ${ischecked}
+          class="delivery-option-input"
+          name="delivery-option-${matchingProduct.id}">
+        <div>
+          <div class="delivery-option-date">
+            ${dateString}
+          </div>
+          <div class="delivery-option-price">
+            ${priceString}
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  return html;
+}
+
 function renderOrderSummary(){
 const today = dayjs();
 
@@ -71,55 +101,19 @@ document.querySelector('.order-summary').innerHTML = cartsummeryHTML;
 document.querySelectorAll('.js_delete_link').forEach((link) => {
   link.addEventListener("click", () => {
     const product_to_del = link.dataset.productId;
-    removeFromCart(product_to_del);
-    console.log(product_to_del);
-    console.log(cart);
-    let container = document.querySelector(`.js-cart-item-container-${product_to_del}`);
-    console.log(container);
-    container.remove();
-    renderpaymentsummery();
-  });
-});
+    console.log('Product to delete:', product_to_del);
 
-function deliveryOptionHTML(matchingProduct) {
-  let html = '';
-  cartOption.forEach((delivery) => {
-    const today = dayjs();
-    const deliveryDate = today.add(delivery.daliveryDays, 'day'); // daliveryDays is the key in cartOptions.js
-    const dateString = deliveryDate.format('dddd, MMMM D');
-    const priceString = delivery.price === 0 ? 'FREE Shipping' : `₹${Math.floor(convertion(delivery.price) / 100)} - Shipping`;
-    const ischecked = delivery.id === matchingProduct.deliveryOptionId ? 'checked' : '';
-    html +=
-      `
-      <div class="delivery-option">
-        <input type="radio"
-          value="${delivery.id}"
-          ${ischecked}
-          class="delivery-option-input"
-          name="delivery-option-${matchingProduct.id}">
-        <div>
-          <div class="delivery-option-date">
-            ${dateString}
-          </div>
-          <div class="delivery-option-price">
-            ${priceString}
-          </div>
-        </div>
-      </div>
-      `;
-  });
-  return html;
-}
-// Add this after your HTML is added to the page
-document.querySelectorAll('.js_delete_link').forEach((link) => {
-  link.addEventListener("click", () => {
-    const product_to_del = link.dataset.productId;
     removeFromCart(product_to_del);
-    console.log(product_to_del);
-    console.log(cart);
+    console.log('Updated cart:', cart);
+
     let container = document.querySelector(`.js-cart-item-container-${product_to_del}`);
-    console.log(container);
-    container.remove();
+    if (container) {
+      container.remove();
+    } else {
+      console.error(`Error: Could not find container for product ID: ${product_to_del}`);
+    }
+
+    renderpaymentsummery();
   });
 });
 
@@ -156,5 +150,6 @@ renderOrderSummary();
 }
 renderpaymentsummery();
 renderOrderSummary();
+
 
 
