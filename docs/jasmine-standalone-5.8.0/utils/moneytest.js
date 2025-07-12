@@ -1,4 +1,4 @@
-import {convertion,formatPrice,tax} from '../utils/money.js';
+import {convertion,formatPrice,tax} from '../../utils/money.js';
 describe('test suite for money.js', () => {
   it('should convert dollars to rupees', () => {
     const dollars = 10;

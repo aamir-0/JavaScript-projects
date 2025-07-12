@@ -4,6 +4,7 @@ import { convertion } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { cartOption } from '../data/cartOptions.js';
 import { renderpaymentsummery } from './paymentsummery.js';
+import '../data/cart_oop.js';
 
 
 export function deliveryOptionHTML(cartItem) {
