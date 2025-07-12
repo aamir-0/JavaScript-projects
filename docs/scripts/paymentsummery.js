@@ -38,7 +38,7 @@ export function renderpaymentsummery() {
 
           <div class="payment-summary-row">
             <div>Shipping &amp; handling:</div>
-            <div class="payment-summary-money">₹${convertion(shippingPrice / 100)}</div>
+            <div class="payment-summary-money">₹${convertion(shippingPrice / 100)+33}</div>
           </div>
 
           <div class="payment-summary-row subtotal-row">
