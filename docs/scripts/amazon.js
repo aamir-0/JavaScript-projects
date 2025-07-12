@@ -1,8 +1,10 @@
 import {cart, addtocart} from '../data/cart.js';
-import {products} from '../data/products.js';
+import {products,loadproducts} from '../data/products.js';
 import{convertion} from '../utils/money.js'
 
+loadproducts(renderproducts);
 
+ function renderproducts(){
 
 let producthtml='';
 products.forEach((value)=>
@@ -80,3 +82,4 @@ function updatecart(){
 }
 
 updatecart();
+}
